@@ -20,7 +20,8 @@ jobs:
     - name: Run pyinstaller 
       run: |
         pyinstaller test.py --onefile --hidden-import='PIL._tkinter_finder'
-        echo $GITHUB_SHA
+        set /a _myvar = %GITHUB_RUN_NUMBER
+        echo %_myvar%
     - uses: actions/upload-artifact@v1
       with:
         name: CARE_files
