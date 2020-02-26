@@ -24,12 +24,10 @@ jobs:
     - shell: bash
       run: |
           version_number=$GITHUB_RUN_NUMBER
-          decimal=100
-          res=$(echo "scale=3 ; $version_number / $decimal"|bc)
           commitId=$GITHUB_SHA
           commitRef=$GITHUB_REF
           time=$(date +"%d-%b-%Y %H:%M:%S")
-          printf "COMMIT ID: ${commitId}\nBRANCH REF: ${commitRef}\nVERSION NUMBER: ${res}\nVERSION_TIME: ${time}\n" > ./dist/version.properties
+          printf "COMMIT ID: ${commitId}\nBRANCH REF: ${commitRef}\nVERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./dist/version.properties
           list=$(ls -R)
           printf "CURRENT FILES: \n ${list}\n"
           cur=$(pwd)
