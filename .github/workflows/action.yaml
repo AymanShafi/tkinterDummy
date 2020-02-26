@@ -11,7 +11,7 @@ jobs:
 
     - run: mkdir -p .
 
-    - run: echo hello > ./world.txt
+    - run: echo hello! > ./world.txt
 
     - uses: actions/upload-artifact@v1
       with:
