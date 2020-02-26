@@ -19,7 +19,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run pyinstaller 
       run: |
-        pyinstaller test.py
+        pyinstaller test.py --onefile --hidden-import='PIL._tkinter_finder'
         version_number=$GITHUB_RUN_NUMBER
         time=$(date +'$d-$m-$Y $H:$M:$S')
         printf "VERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./version.properties
