@@ -22,8 +22,10 @@ jobs:
         pyinstaller test.py --onefile
         version_number=$GITHUB_RUN_NUMBER
         time=$(date)
-        printf "VERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./version.properties
-    - uses: actions/upload-artifact@v1
+        printf "VERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./dist/version.properties
+    - name: Create GitHub release
+      uses: AymanShafi/github-upload-release-artifacts-action@master
       with:
-        name: executable
-        path: .
+        args:
+        - ./dist/test 
+        - ./dist/version.properties
