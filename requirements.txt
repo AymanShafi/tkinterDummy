@@ -2,6 +2,6 @@ PyInstaller==3.5
 pillow==5.4.1
 requests==2.21.0
 whoosh==2.7.4
-urllib3==1.24.1
+urllib3==1.24.2
 datefinder==0.7.0
 tika==1.23
