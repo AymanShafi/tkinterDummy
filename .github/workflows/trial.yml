@@ -20,6 +20,11 @@ jobs:
     - name: Run pyinstaller 
       run: |
         pyinstaller test.py --onefile --hidden-import='PIL._tkinter_finder'
+        
+    - uses: actions/upload-artifact@v1
+      with:
+        name: CARE_files
+        path: ./dist/
 
   custom_job:
     runs-on: ubuntu-latest
@@ -30,16 +35,19 @@ jobs:
           commitId=$GITHUB_SHA
           commitRef=$GITHUB_REF
           time=$(date +"%d-%b-%Y %H:%M:%S")
-          printf "COMMIT ID: ${commitId}\nBRANCH REF: ${commitRef}\nVERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n"
+          printf "COMMIT ID: ${commitId}\nBRANCH REF: ${commitRef}\nVERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./version.properties
           list=$(ls -R)
           printf "CURRENT FILES: \n ${list}"
           cur=$(pwd)
           printf "CURRENT DIR: ${cur}"
+          
+      - uses: actions/upload-artifact@v1
+        with:
+          name: CARE_properties
+          path: ./version.properties
+
     
-#       - uses: actions/upload-artifact@v1
-#         with:
-#           name: CARE_files
-#           path: ./dist/
+#       
 
 #     - uses: actions/checkout@master
 #     - name: Create release
