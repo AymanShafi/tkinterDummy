@@ -4,44 +4,26 @@ on: [push]
 
 jobs:
   build:
-    runs-on: windows-latest
+
+    runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
-      
     - name: Set up Python 3.7
       uses: actions/setup-python@v1
       with:
-        python-version: 3.7  
-  
+        python-version: 3.7
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run pyinstaller 
       run: |
-        pyinstaller test.py --onefile
-        printf $GITHUB_RUN_NUMBER
-        time=$(date)
-        printf "VERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./dist/version.properties
-#     - name: Uploading artifact
-#       uses: actions/upload-artifact@v1
-#       with:
-#         name: care
-#         path: . 
-    
-#   release:
-#     runs-on: windows-latest
-#     needs: [build]
-#     steps:
-#     - uses: actions/checkout@master
-#     - name: Create release
-#       uses: AymanShafi/github-create-release-action@master
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#     - name: Create GitHub release
-#       uses: AymanShafi/github-upload-release-artifacts-action@master
-#       with:
-#         name: care
-#         path: ./dist/test  
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        pyinstaller test.py
+        version_number=$GITHUB_RUN_NUMBER
+        time=$(date +'$d-$m-$Y $H:$M:$S')
+        printf "VERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./version.properties
+    - uses: actions/upload-artifact@v1
+      with:
+        name: executable
+        path: .
