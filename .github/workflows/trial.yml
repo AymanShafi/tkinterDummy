@@ -25,7 +25,7 @@ jobs:
         printf "VERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./version.properties
     - uses: actions/upload-artifact@v1
       with:
-        title: EXE file and Properties file
+        name: CARE_release
           - files:[ ./dist/test, ./version.properties ]
 #   release:
 #     runs-on: ubuntu-latest
