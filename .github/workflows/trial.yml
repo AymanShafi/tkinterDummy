@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -20,11 +20,13 @@ jobs:
     - name: Run pyinstaller 
       run: |
         pyinstaller test.py --onefile --hidden-import='PIL._tkinter_finder'
-        version_number=$GITHUB_RUN_NUMBER
-        commitId=$GITHUB_SHA
-        commitRef=$GITHUB_REF
-        time=$(date +"%d-%b-%Y %H:%M:%S")
-        printf "COMMIT ID: ${commitId}\nBRANCH REF: ${commitRef}\nVERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./dist/version.properties
+        set /a version_number = $GITHUB_RUN_NUMBER
+        set _commitId = $GITHUB_SHA
+        set _commitRef = $GITHUB_REF
+        echo COMMIT ID: %_commitId% > ./dist/version.properties
+        echo BRANCH REF: %_commitRef% >> ./dist/version.properties
+        echo VERSION NUMBER: %version_number% >> ./dist/version.properties
+        echo VERSION_TIME: %DATE% >> ./dist/version.properties
     - uses: actions/upload-artifact@v1
       with:
         name: CARE_files
