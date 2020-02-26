@@ -20,13 +20,10 @@ jobs:
     - name: Run pyinstaller 
       run: |
         pyinstaller test.py --onefile --hidden-import='PIL._tkinter_finder'
-        set /a version_number = $GITHUB_RUN_NUMBER
-        set _commitId = $GITHUB_SHA
-        set _commitRef = $GITHUB_REF
-        echo COMMIT ID: %_commitId% > ./dist/version.properties
-        echo BRANCH REF: %_commitRef% >> ./dist/version.properties
-        echo VERSION NUMBER: %version_number% >> ./dist/version.properties
-        echo VERSION_TIME: %DATE% >> ./dist/version.properties
+        echo COMMIT ID: $GITHUB_SHA
+        echo BRANCH REF: $GITHUB_REF
+        echo VERSION NUMBER: $GITHUB_RUN_NUMBER
+        echo VERSION_TIME: %DATE%
     - uses: actions/upload-artifact@v1
       with:
         name: CARE_files
