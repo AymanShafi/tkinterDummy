@@ -4,9 +4,7 @@ on: [push]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.7
@@ -23,9 +21,24 @@ jobs:
         version_number=$GITHUB_RUN_NUMBER
         time=$(date)
         printf "VERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./dist/version.properties
+    - uses: actions/upload-artifact@v1
+      with:
+        name: care1
+        path: . 
+    
+  release:
+    runs-on: windows-latest
+    needs: [build]
+    steps:
+    - uses: actions/checkout@master
+    - name: Create release
+      uses: AymanShafi/github-create-release-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Create GitHub release
       uses: AymanShafi/github-upload-release-artifacts-action@master
       with:
-        args:
-        - ./dist/test 
-        - ./dist/version.properties
+        name: care
+        path: ./dist/test  
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
