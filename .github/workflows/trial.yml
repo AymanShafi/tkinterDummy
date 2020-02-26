@@ -19,9 +19,9 @@ jobs:
         pip install -r requirements.txt
     - name: Run pyinstaller 
       run: |
-        pyinstaller test.py
+        pyinstaller test.py --onefile
         version_number=$GITHUB_RUN_NUMBER
-        time=$(date +'$d-$m-$Y $H:$M:$S')
+        time=$(date)
         printf "VERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./version.properties
     - uses: actions/upload-artifact@v1
       with:
