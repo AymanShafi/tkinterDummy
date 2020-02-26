@@ -22,7 +22,7 @@ jobs:
         pyinstaller test.py --onefile --hidden-import='PIL._tkinter_finder'
         
     - shell: bash
-        run: |
+      run: |
           version_number=$GITHUB_RUN_NUMBER/100
           commitId=$GITHUB_SHA
           commitRef=$GITHUB_REF
