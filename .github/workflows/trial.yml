@@ -20,14 +20,14 @@ jobs:
     - name: Run pyinstaller 
       run: |
         pyinstaller test.py --onefile
-        version_number=$GITHUB_RUN_NUMBER
+        printf $GITHUB_RUN_NUMBER
         time=$(date)
         printf "VERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./dist/version.properties
-    - name: Uploading artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: care
-        path: . 
+#     - name: Uploading artifact
+#       uses: actions/upload-artifact@v1
+#       with:
+#         name: care
+#         path: . 
     
 #   release:
 #     runs-on: windows-latest
