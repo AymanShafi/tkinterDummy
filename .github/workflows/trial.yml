@@ -23,7 +23,10 @@ jobs:
         
     - shell: bash
       run: |
+          #!/bin/bash
           version_number=$GITHUB_RUN_NUMBER
+          $decimal=100
+          res=$(echo "scale=2 ; $version_number / $decimal" | bc)
           commitId=$GITHUB_SHA
           commitRef=$GITHUB_REF
           time=$(date +"%d-%b-%Y %H:%M:%S")
