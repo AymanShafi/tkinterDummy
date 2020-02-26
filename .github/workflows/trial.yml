@@ -25,7 +25,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - name: GET BUILD DETAILS
       - run: |
           version_number=$GITHUB_RUN_NUMBER
           commitId=$GITHUB_SHA
@@ -33,7 +32,6 @@ jobs:
           time=$(date +"%d-%b-%Y %H:%M:%S")
           printf "COMMIT ID: ${commitId}\nBRANCH REF: ${commitRef}\nVERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n"
     
-      - name: UPLOAD ARTIFACT
       - uses: actions/upload-artifact@v1
         with:
           name: CARE_files
