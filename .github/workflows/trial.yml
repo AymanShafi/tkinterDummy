@@ -24,7 +24,7 @@ jobs:
         time=$(date)
         printf "VERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n" > ./dist/version.properties
     - name: Uploading artifact
-    - uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v1
       with:
         name: care
         path: . 
