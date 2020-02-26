@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-
+  
     runs-on: windows-latest
 
     steps:
@@ -20,20 +20,25 @@ jobs:
     - name: Run pyinstaller 
       run: |
         pyinstaller test.py --onefile --hidden-import='PIL._tkinter_finder'
-        set /a _myvar = %GITHUB_RUN_NUMBER
-        echo %_myvar%
-    - uses: actions/upload-artifact@v1
-      with:
-        name: CARE_files
-        path: ./dist/
-#   release:
 
-#         echo COMMIT ID: $GITHUB_SHA
-#         echo BRANCH REF: $GITHUB_REF
-#         echo VERSION NUMBER: $GITHUB_RUN_NUMBER
-#     runs-on: ubuntu-latest
-#     needs: [build]
-#     steps:
+  custom_job:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: GET BUILD DETAILS
+      - run: |
+          version_number=$GITHUB_RUN_NUMBER
+          commitId=$GITHUB_SHA
+          commitRef=$GITHUB_REF
+          time=$(date +"%d-%b-%Y %H:%M:%S")
+          printf "COMMIT ID: ${commitId}\nBRANCH REF: ${commitRef}\nVERSION NUMBER: ${version_number}\nVERSION_TIME: ${time}\n"
+    
+      - name: UPLOAD ARTIFACT
+      - uses: actions/upload-artifact@v1
+        with:
+          name: CARE_files
+          path: ./dist/
+
 #     - uses: actions/checkout@master
 #     - name: Create release
 #       uses: anantmoudgalya/github-create-release-action@master
