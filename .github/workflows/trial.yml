@@ -33,11 +33,15 @@ jobs:
           printf "CURRENT FILES: \n ${list}\n"
           cur=$(pwd)
           printf "CURRENT DIR: ${cur}"
-    
+          echo "MOVING FILE?"
+          mv ./dist/test ./folder/
+          list=$(ls -R)
+          printf "CURRENT FILES: \n ${list}\n"
+
     - uses: actions/upload-artifact@v1
       with:
         name: CARE_files
-        path: ./dist/
+        path: ./folder
 
 #   custom_job:
 #     runs-on: ubuntu-latest
